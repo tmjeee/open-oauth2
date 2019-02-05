@@ -1,0 +1,6 @@
+{
+  "oauth2Server": "http://localhost:8081",
+  "resourceOwnerAuthenticationUrl": "/oauth2/authentication",
+  "resourceOwnerScopesApprovalUrl": "/oauth2/approve",
+  "resourceOwnerScopesRejectionUrl": "/oauth2/reject"
+}

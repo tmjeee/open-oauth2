@@ -1,0 +1,87 @@
+
+<div class="register-resource-owner-page">
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-messages></p-messages>
+    </div>
+  </div>
+
+  <form class="form" (ngSubmit)="onSubmit($event)" [formGroup]="formGroup">
+    <div class="p-grid p-dir-col">
+      <div class="p-col"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <h1>Resource Owner Registration</h1>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">
+            Username:
+          </div>
+          <div class="p-col-4">
+            <input type="text" class="form-component" pInputText [formControl]="formControlUsername">
+            <ng-container *ngIf="formControlUsername.invalid && (formControlUsername.dirty || formControlUsername.touched)">
+              <p-message *ngIf="formControlUsername.errors.required" severity="error" text="Username is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">
+            Email:
+          </div>
+          <div class="p-col-4">
+            <input type="text" class="form-component" pInputText [formControl]="formControlEmail">
+            <ng-container *ngIf="formControlEmail.invalid && (formControlEmail.dirty || formControlEmail.touched)">
+              <p-message *ngIf="formControlEmail.errors.required" severity="error" text="Email is required"></p-message>
+              <p-message *ngIf="formControlEmail.errors.email" severity="error" text="Email is invalid"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">
+            Password:
+          </div>
+          <div class="p-col-4">
+            <input type="password" class="form-component" pPassword [formControl]="formControlPassword">
+            <ng-container *ngIf="formControlPassword.invalid && (formControlPassword.dirty || formControlPassword.touched)">
+              <p-message *ngIf="formControlPassword.errors.required" severity="error" text="Password is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">
+            Confirm Password:
+          </div>
+          <div class="p-col-4">
+            <input type="password" class="form-component" pPassword [formControl]="formControlConfirmPassword">
+            <ng-container *ngIf="formControlConfirmPassword.invalid && (formControlConfirmPassword.dirty || formControlConfirmPassword.touched)">
+              <p-message *ngIf="formControlConfirmPassword.errors.required" severity="error" text="Password is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">
+            <p-checkbox [binary]="true" [formControl]="formControlAutoApprove"></p-checkbox>
+          </div>
+          <div class="p-col-4">
+            Auto Approve
+          </div>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="p-grid p-justify-center p-align-center">
+          <button type="submit" label="Submit" pButton [disabled]="!formGroup.valid"></button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

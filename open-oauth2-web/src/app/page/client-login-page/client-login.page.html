@@ -1,0 +1,31 @@
+<div class="client-login-page">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-messages></p-messages>
+    </div>
+  </div>
+  <form class="form" (ngSubmit)="onSubmit($event)" [formGroup]="formGroup">
+    <div class="p-grid p-dir-col">
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <h1>Client Login</h1>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <input pInputText placeholder="Username" type="text">
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <input pInputText placeholder="password" type="password">
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <button pButton type="submit">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

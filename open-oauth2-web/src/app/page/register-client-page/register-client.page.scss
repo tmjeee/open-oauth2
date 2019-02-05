@@ -1,0 +1,20 @@
+
+.register-client-page {
+  ::ng-deep {
+    .form {
+      .form-label {
+        text-align: right;
+      }
+
+      .form-component {
+        width: 100%;
+      }
+
+      .scopes-input {
+        .ui-inputtext {
+          width:100%;
+        }
+      }
+    }
+  }
+}

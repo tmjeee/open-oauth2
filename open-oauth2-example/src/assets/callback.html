@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback</title>
+</head>
+<body>
+  <h1>Callback point for authentication token / code</h1>
+
+
+  <div id="error" class="error">
+    <div>error=<span class="errorText"></span></div>
+    <div>state=<span class="stateText"></span></div>
+  </div>
+
+  <div id="code" class="code">
+    <div>code=<span class="codeText"></span></div>
+    <div>state=<span class="stateText"></span></div>
+    <button onClick="exchangeCodeForToken()">Exchange Code for Token</button>
+    <div>client id=<input type="text" id="client_id"></div>
+    <div>client secret=<input type="password" id="client_secret"></div>
+    <div id="r" class="r"></div>
+  </div>
+
+  <div id="token" class="token">
+    <div>access_token=<span class="access_token"></span></div>
+    <div>token_type=<span class="token_type"></span></div>
+    <div>expires_in=<span class="expires_in"></span></div>
+    <div>state=<span class="state"></span></div>
+    <div></div>
+  </div>
+
+  <script type="text/javascript">
+    var oauth2Server = "http://localhost:8081/oauth2/token";
+
+    function b64EncodeUnicode(str) {
+      // first we use encodeURIComponent to get percent-encoded UTF-8,
+      // then we convert the percent encodings into raw bytes which
+      // can be fed into btoa.
+      return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+          return String.fromCharCode('0x' + p1);
+        }));
+    }
+
+    function b64DecodeUnicode(str) {
+      // Going backwards: from bytestream, to percent-encoding, to original string.
+      return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+    }
+
+    function exchangeCodeForToken(){
+      var code = document.querySelector(".codeText").innerHTML;
+      var client_id = document.querySelector("#client_id").value;
+      var client_secret = document.querySelector("#client_secret").value;
+      var authCode = b64EncodeUnicode(client_id+":"+client_secret);
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        //if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState == 4) {
+          document.getElementById("r").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("POST", oauth2Server, true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.setRequestHeader("Authorization", "Basic "+authCode);
+      xhttp.send("grant_type=authorization_code&code="+code);
+
+    }
+
+    hideAll();
+    var searchParam = document.location.search;
+    var urlSearchParams = new URLSearchParams(searchParam);
+    if (urlSearchParams.get("error")) {
+      var errorDiv = document.querySelector("#error");
+      errorDiv.style.display = 'block';
+      errorDiv.querySelector(".errorText").innerHTML = urlSearchParams.get("error");
+      errorDiv.querySelector(".stateText").innerHTML = urlSearchParams.get("state");
+    }
+    else if (urlSearchParams.get("code")) {
+      var codeDiv = document.querySelector("#code");
+      codeDiv.style.display = 'block';
+      codeDiv.querySelector(".codeText").innerHTML = urlSearchParams.get("code");
+      codeDiv.querySelector(".stateText").innerHTML = urlSearchParams.get("state");
+    } else {
+      var hash = document.location.hash;
+      if (hash) {
+        var obj = {};
+        hash = hash.substr(1);
+        var params = hash.split("&");
+        for (var a = 0; a<params.length; a++) {
+          var nameValuePair = params[a].split("=");
+          var name = nameValuePair[0];
+          var value = (nameValuePair.length > 1 ? nameValuePair[1] : "");
+          obj[name] = value;
+        }
+
+        var codeDiv = document.querySelector("#token");
+        tokenDiv.style.display = 'block';
+        tokenDiv.querySelector(".access_token").innerHTML = obj["access_token"];
+        tokenDiv.querySelector(".token_type").innerHTML = obj["token_type"];
+        tokenDiv.querySelector(".expires_in").innerHTML = obj["expires_in"];
+        tokenDiv.querySelector(".state").innerHTML = obj["state"];
+      }
+    }
+
+    function hideAll() {
+      codeDiv().style.display = 'none';
+      errorDiv().style.display = 'none';
+      tokenDiv().style.display = 'none';
+    }
+
+    function codeDiv() {
+      return document.querySelector("#code");
+    }
+
+    function errorDiv() {
+      return document.querySelector("#error");
+    }
+
+    function tokenDiv() {
+      return document.querySelector("#token");
+    }
+
+  </script>
+</body>
+</html>

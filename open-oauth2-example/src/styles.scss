@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+// override prime-flex grid stylings
+.p-grid {
+  margin-top:0px !important;
+  margin-left:0px !important;
+  margin-right:0px !important;
+  margin-bottom:0px !important;
+}
+
+.p-nopad {
+  padding: 0px !important;
+}
+.p-nopad-top {
+  padding-top:0px !important;
+}
+.p-nopad-right {
+  padding-right:0px !important;
+}
+.p-nopad-bottom {
+  padding-bottom:0px !important;
+}
+.p-nopad-left {
+  padding-left: 0px !important;
+}

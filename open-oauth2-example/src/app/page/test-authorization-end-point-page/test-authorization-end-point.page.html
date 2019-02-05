@@ -1,0 +1,29 @@
+<div class="test-authorization-page">
+  <div class="p-grid p-dir-col">
+    <div class="p-col">
+      <h1>Authorization End Point</h1>
+    </div>
+    <div class="p-col">
+      Client Id: (Required) <input type="text" pInputText [(ngModel)]="client_id">
+    </div>
+    <div class="p-col">
+      Response Type: (Required) <p-dropdown [options]="responseTypes" [(ngModel)]="response_type"></p-dropdown>
+    </div>
+    <div class="p-col">
+      Redirect URI: (Optional) <input type="text" pInputText [(ngModel)]="redirect_uri">
+    </div>
+    <div class="p-col">
+      Scopes: (Optional) <input type="text" pInputText [(ngModel)]="scopes">
+    </div>
+    <div class="p-col">
+      State: (Optional) <input type="text" pInputText [(ngModel)]="state">
+    </div>
+    <div class="p-col">
+      <button pButton
+              type="button"
+              (click)="onClickTestAuthrorizationWithoutResourceOwnerBasicAuthentication($event)"
+              label="Test Authorization Without Resource Owner BasicAuthentication ">
+      </button>
+    </div>
+  </div>
+</div>

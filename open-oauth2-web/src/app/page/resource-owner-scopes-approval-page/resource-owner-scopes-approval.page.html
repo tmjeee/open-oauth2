@@ -1,0 +1,56 @@
+
+<div class="resource-owner-scopes-approval-page">
+
+  <div class="p-grid">
+    <p class="p-col">
+      <p-messages></p-messages>
+    </p>
+  </div>
+
+
+
+
+  <form class="form" method="post" action="" [formGroup]="formGroup">
+    <div class="p-grid p-dir-col">
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <h1>Resource Owner Scopes Approval</h1>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">Scopes</div>
+          <div class="p-col-4">
+            <div class="p-grid p-dir-col">
+              <ng-container *ngFor="let scope of scopes">
+                <div class="p-col">
+                  <p-checkbox [label]="scope" [value]="scope" [formControl]="formControlScopes"></p-checkbox>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-fixed">
+            <button type="submit"
+                    pButton
+                    label="Approve"
+                    [disabled]="!formGroup.valid"
+                    (click)="onApprove($event)">
+            </button>
+          </div>
+          <div class="p-col-fixed">
+            <button type="submit"
+                    pButton
+                    label="Reject"
+                    [disabled]="!formGroup.valid"
+                    (click)="onReject($event)">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

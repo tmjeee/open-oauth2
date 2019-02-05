@@ -1,0 +1,13 @@
+
+.resource-owner-scopes-approval-page {
+  ::ng-deep {
+    .form {
+      .form-label {
+        text-align:right;
+      }
+      .form-component {
+        width:100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+
+<div class="resource-owner-authentication-page">
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-messages></p-messages>
+    </div>
+  </div>
+
+
+  <form class="form" method="POST" action="" [formGroup]="formGroup">
+    <input type="hidden" name="transaction_id" value="{{transactionId}}">
+    <div class="p-grid p-dir-col">
+      <div class="p-col"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <h1>Resource Owner Authentication</h1>
+        </div>
+      </div>
+      <div class="p-col"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center">
+          <div class="p-col-2 form-label">Username</div>
+          <div class="p-col-4">
+            <input type="text" name="username" pInputText class="form-component" [formControl]="formControlUsername">
+            <ng-container *ngIf="formControlUsername.invalid && (formControlUsername.dirty || formControlUsername.touched)">
+              <p-message *ngIf="formControlUsername.errors.required" severity="error" text="Username is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+        <div class="p-col"><!-- row -->
+          <div class="p-grid p-justify-center p-align-center">
+            <div class="p-col-2 form-label">Password</div>
+            <div class="p-col-4">
+              <input type="password" name="password" class="form-component" pPassword [formControl]="formControlPassword">
+              <ng-container *ngIf="formControlPassword.invalid && (formControlPassword.dirty || formControlPassword.touched)">
+                <p-message *ngIf="formControlPassword.errors.required" severity="error" text="Username is required"></p-message>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="p-col"><!-- row -->
+          <div class="p-grid p-justify-center p-align-center">
+            <button type="submit"
+                    pButton
+                    label="Submit"
+                    (click)="onSubmit($event)"
+                    [disabled]="!formGroup.valid">
+            </button>
+          </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+
+<div class="register-client-page">
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-messages></p-messages>
+    </div>
+  </div>
+
+
+  <form class="form" (ngSubmit)="onSubmit($event)" [formGroup]="formGroup">
+    <div class="p-grid p-dir-col">
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <h1>Client Registration</h1>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Client ID:
+          </div>
+          <div class="p-col-4">
+            <input type="text" pInputText class="form-component"
+                   [formControl]="formControlClientId">
+            <ng-container *ngIf="formControlClientId.invalid && (formControlClientId.dirty || formControlClientId.touched)">
+              <p-message *ngIf="formControlClientId.errors.required" severity="error" text="Client Id is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Email:
+          </div>
+          <div class="p-col-4">
+            <input type="text" pInputText="" class="form-component"
+                   [formControl]="formControlEmail">
+            <ng-container *ngIf="formControlEmail.invalid && (formControlEmail.dirty || formControlEmail.touched)">
+              <p-message *ngIf="formControlEmail.errors.required" severity="error" text="Email required"></p-message>
+              <p-message *ngIf="formControlEmail.errors.email" severity="error" text="Email is invalid"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Client Secret:
+          </div>
+          <div class="p-col-4">
+            <input type="password" pPassword class="form-component"
+                   [formControl]="formControlClientSecret">
+            <ng-container *ngIf="formControlClientSecret.invalid && (formControlClientSecret.dirty || formControlClientSecret.touched)">
+              <p-message *ngIf="formControlClientSecret.errors.required" severity="error" text="Client secret is required"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Description
+          </div>
+          <div class="p-col-4">
+            <textarea pInputTextarea rows="5" class="form-component"
+                      [formControl]="formControlDescription"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Expiration (in seconds)
+          </div>
+          <div class="p-col-4">
+            <input type="number" pInputText class="form-component"
+                   [formControl]="formControlExpiration">
+            <ng-container *ngIf="formControlExpiration.invalid && (formControlExpiration.dirty || formControlExpiration.touched)">
+              <p-message *ngIf="formControlExpiration.errors.required" severity="error" text="Expiration number (in seconds) is required"></p-message>
+              <p-message *ngIf="formControlExpiration.errors.min" severity="error" text="Must be at least 300"></p-message>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            <p-checkbox binary="true"
+                        [formControl]="formControlConfidential"></p-checkbox>
+          </div>
+          <div class="p-col-4">
+            Confidential
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Grant Types:
+          </div>
+          <div class="p-col-4">
+            <div class="p-grid p-dir-col">
+              <div class="p-col">
+                <p-checkbox label="Authorization Code" value="authorization_code"
+                            [formControl]="formControlGrantTypes"></p-checkbox>
+              </div>
+              <div class="p-col">
+                <p-checkbox label="Implicit" value="implicit"
+                            [formControl]="formControlGrantTypes"></p-checkbox>
+              </div>
+              <div class="p-col">
+                <p-checkbox label="Resource Owner Password Credentials" value="resource_password"
+                            [formControl]="formControlGrantTypes"></p-checkbox>
+              </div>
+              <div class="p-col">
+                <p-checkbox label="Client Credentials" value="client_credentials"
+                            [formControl]="formControlGrantTypes"></p-checkbox>
+              </div>
+              <div class="p-col">
+                <p-checkbox label="Refresh Token" value="refresh_token"
+                            [formControl]="formControlGrantTypes"></p-checkbox>
+              </div>
+              <ng-container *ngIf="formControlGrantTypes.invalid && (formControlGrantTypes.dirty || formControlGrantTypes.touched)">
+                <p-message *ngIf="formControlGrantTypes.errors.required" severity="error" text="At least one Grant Type is required"></p-message>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Scopes:
+          </div>
+          <div class="p-col-4">
+            <p-chips styleClass="scopes-input form-component" inputStyleClass="form-component"
+                     (onBlur)="onBlurChip($event)"
+                     (onRemove)="onRemoveChip($event)"
+                     (onAdd)="onAddChip($event)">
+            </p-chips>
+            <ng-container *ngIf="formControlScopes.invalid && (formControlScopes.touched || formControlScopes.dirty)">
+              <p-message *ngIf="formControlScopes.error && formControlScopes.errors.required" severity="error" text="Scope is required"></p-message>
+            </ng-container>
+            <ng-container *ngFor="let formControlScope of formControlScopes.controls">
+              <ng-container *ngIf="formControlScope.invalid">
+                <p-message *ngIf="formControlScope.errors.required" severity="error" text="Scope {{formControlScope.value}} is required"></p-message>
+                <p-message *ngIf="formControlScope.errors.pattern" severity="error" text="Scope {{formControlScope.value}} must be alphanumeric and contains no space"></p-message>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <div class="p-col-2 form-label">
+            Redirect URIs:
+          </div>
+          <div class="p-col-4">
+            <div class="p-grid p-dir-col">
+              <div class="p-col p-nopad">
+                <div class="p-grid"
+                     *ngFor="let formControlRedirectUri of formControlRedirectUris.controls; let i = index">
+                  <div class="p-col p-nopad-left">
+                    <input type="text" pInputText class="form-component"
+                           [formControl]="formControlRedirectUri">
+                    <ng-container *ngIf="formControlRedirectUri.invalid && (formControlRedirectUri.dirty || formControlRedirectUri.touched)">
+                      <p-message *ngIf="formControlRedirectUri.errors.required" severity="error" text="Redirect URI must not be empty"></p-message>
+                      <p-message *ngIf="formControlRedirectUri.errors.pattern" severity="error" text="Redirect URI must not be valid URI with no fragment"></p-message>
+                    </ng-container>
+                  </div>
+                  <div *ngIf="i != 0" class="p-col-fixed">
+                    <p-button label="Delete" (click)="removeRedirectUri(formControlRedirectUri)"></p-button>
+                  </div>
+                </div>
+                <div class="p-col">
+                  <p-button label="Add Redirect URI" (click)="addRedirectUri()"></p-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-col"><!-- row -->
+        <div class="p-grid p-justify-center p-align-center"> <!-- col-->
+          <button type="submit" label="Submit" pButton [disabled]="!formGroup.valid"></button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
